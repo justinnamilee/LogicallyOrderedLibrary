@@ -4,6 +4,7 @@ package lol::raid5;
 #		1) all incoming data is valid
 #
 
+sub DEBUG_FORMAT_CONSTRUCT(){" (DEBUG) initialize drive %d of %d\n"}
 sub DEBUG_FORMAT_DEREF(){" (DEBUG) %d dereference [%d:%d]\n"}
 sub DEBUG_FORMAT_REF(){" (DEBUG) [%d:%d] reference %d\n"}
 sub DEBUG_FORMAT_HASH(){" (DEBUG) hashing %d to %d\n"}
@@ -79,7 +80,7 @@ sub construct {
 	$array->{DATA} = [];
 
 	for (my ($d, $l) = (0, $array->get('drive_count')); $d < $l; $d++) {
-		print " (DEBUG) initialize drive ", $d + 1, " of $l\n";
+		printf(DEBUG_FORMAT_CONSTRUCT, $d + 1, $l);
 		$array->{DATA}[$d] = lol::drive->buy((ref($drive) eq 'HASH') ? %{$drive} : ());
 	} print "\n";
 
